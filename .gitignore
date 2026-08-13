@@ -1,0 +1,14 @@
+# .NET
+**/bin/
+**/obj/
+*.user
+*.suo
+.vs/
+
+# Local offline NuGet feed produced by scripts/pack-bot-sdk
+.packages/
+
+# IDE and OS
+.idea/
+.DS_Store
+Thumbs.db

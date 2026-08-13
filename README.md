@@ -45,6 +45,6 @@ template `NuGet.config` in any zip you upload.
 
 ## Publishing packages
 
-Package publishing to nuget.org is still driven from the private arena
-repository (`sdk-v*` tags and NuGet Trusted Publishing). After this public repo
-exists, a second Trusted Publishing policy can be added for it.
+Package publishing to nuget.org is driven from the private arena repository
+(`sdk-v*` tags and NuGet Trusted Publishing). A second nuget.org Trusted
+Publishing policy can be added for this public repository.
