@@ -1,0 +1,33 @@
+<Project>
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <!-- Bots are built offline from a package feed, never from the repository
+         layout, so these projects deliberately avoid ProjectReference. -->
+    <RestoreAdditionalProjectSources>$(UttArenaPackageFeed)</RestoreAdditionalProjectSources>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+
+  <!-- Restore runs as its own MSBuild invocation, so the feed can be produced
+       just in time on a fresh clone instead of requiring a manual bootstrap.
+       Every sample evaluates this in parallel, so a pack that loses a race to
+       write the same nupkg is tolerated as long as the feed ends up complete. -->
+  <Target Name="EnsureUttArenaSdkFeed"
+          BeforeTargets="Restore;CollectPackageReferences"
+          Condition="!Exists('$(UttArenaPackageFeed)UttArena.BotSdk.CSharp.$(UttArenaSdkVersion).nupkg')">
+    <Message Importance="high" Text="Packing the UTT Arena bot SDK into $(UttArenaPackageFeed)" />
+    <!-- The trailing '.' keeps the feed's trailing separator from escaping the
+         closing quote on Windows. -->
+    <Exec Command="dotnet pack &quot;$(MSBuildThisFileDirectory)../src/UttArena.Contracts/UttArena.Contracts.csproj&quot; -c Release -o &quot;$(UttArenaPackageFeed).&quot; --nologo"
+          StandardOutputImportance="low"
+          ContinueOnError="true" />
+    <Exec Command="dotnet pack &quot;$(MSBuildThisFileDirectory)../src/UttArena.GameEngine/UttArena.GameEngine.csproj&quot; -c Release -o &quot;$(UttArenaPackageFeed).&quot; --nologo"
+          StandardOutputImportance="low"
+          ContinueOnError="true" />
+    <Exec Command="dotnet pack &quot;$(MSBuildThisFileDirectory)../src/UttArena.BotSdk.CSharp/UttArena.BotSdk.CSharp.csproj&quot; -c Release -o &quot;$(UttArenaPackageFeed).&quot; --nologo"
+          StandardOutputImportance="low"
+          ContinueOnError="true" />
+    <Error Condition="!Exists('$(UttArenaPackageFeed)UttArena.BotSdk.CSharp.$(UttArenaSdkVersion).nupkg')"
+           Text="The offline bot SDK feed is missing. Run scripts/pack-bot-sdk.ps1 (or .sh) and build again." />
+  </Target>
+</Project>

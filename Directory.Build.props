@@ -1,0 +1,35 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Version of the published bot-authoring packages. Bot projects reference
+         this exact version, and the builder image packs the same value.
+         Bump this before publishing to nuget.org or rebuilding bot-builder. -->
+    <UttArenaSdkVersion>1.2.0</UttArenaSdkVersion>
+    <UttArenaPackageFeed>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', '.packages'))</UttArenaPackageFeed>
+  </PropertyGroup>
+
+  <!-- Shared nuget.org metadata for packable SDK projects. -->
+  <PropertyGroup>
+    <Authors>UTT Arena</Authors>
+    <Company>UTT Arena</Company>
+    <Copyright>Copyright (c) UTT Arena contributors</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/coltonspears/uttarena-bot-sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/coltonspears/uttarena-bot-sdk</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ultimate-tic-tac-toe;bot;sdk;arena;csharp</PackageTags>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IsPackable>true</IsPackable>
+    <PackageId>UttArena.BotSdk.CSharp</PackageId>
+    <Version>$(UttArenaSdkVersion)</Version>
+    <Description>C# authoring host for UTT Arena bots: implement IBot and run BotConsoleHost.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UttArena.Contracts\UttArena.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

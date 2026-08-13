@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.5.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\tools\UttArena.BotHarness\UttArena.BotHarness.csproj" />
+  </ItemGroup>
+
+  <!-- The sample bots are run as child processes, so they only need to be built,
+       not referenced. -->
+  <ItemGroup>
+    <ProjectReference Include="..\..\samples\bot-random-csharp\bot-random-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\samples\bot-heuristic-csharp\bot-heuristic-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\samples\bot-minimax-csharp\bot-minimax-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\samples\bot-mcts-csharp\bot-mcts-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\samples\bot-policy-value-csharp\bot-policy-value-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\samples\bot-template-csharp\bot-template-csharp.csproj"
+                      ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>
