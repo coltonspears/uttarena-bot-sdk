@@ -27,11 +27,34 @@ and submission layout.
 
 ## Local testing
 
+From a fresh clone, pack the local dependencies and build the sample before
+starting the protocol harness. Running the built DLL keeps build output out of
+the bot's JSON protocol stream.
+
+**PowerShell:**
+
+```powershell
+.\scripts\pack-bot-sdk.ps1
+dotnet build samples/bot-template-csharp -c Release
+dotnet samples/bot-template-csharp/bin/Release/net8.0/bot-template-csharp.dll --self-test
+dotnet run --project tools/UttArena.BotHarness -- --conformance "dotnet samples/bot-template-csharp/bin/Release/net8.0/bot-template-csharp.dll"
+```
+
+**Bash:**
+
 ```bash
 ./scripts/pack-bot-sdk.sh
+dotnet build samples/bot-template-csharp -c Release
+dotnet samples/bot-template-csharp/bin/Release/net8.0/bot-template-csharp.dll --self-test
 dotnet run --project tools/UttArena.BotHarness -- \
-  --conformance "dotnet run -c Release --project samples/bot-template-csharp"
+  --conformance "dotnet samples/bot-template-csharp/bin/Release/net8.0/bot-template-csharp.dll"
 ```
+
+The conformance run exercises seven fixtures, including forced-board moves,
+free choice after a closed board, and game-mode special actions. A successful
+run ends with `7/7 fixtures passed.` The template chooses a local center when
+available and otherwise the first legal move; it is a starting point for your
+own strategy.
 
 Arena submissions restore from an **offline** feed (no network). Keep the
 template `NuGet.config` in any zip you upload.
